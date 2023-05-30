@@ -1,5 +1,6 @@
 package workshop;
 
+import io.github.pixee.security.BoundedLineReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,7 +40,7 @@ public class AdminController {
         BufferedReader in = new BufferedReader(new FileReader(file));
         String str;
         StringBuilder sb = new StringBuilder();
-        while ((str = in.readLine()) != null) {
+        while ((str = BoundedLineReader.readLine(in, 1000000)) != null) {
             int index;
             // removes single-line comments
             if ((index = str.indexOf("--")) >= 0) {
